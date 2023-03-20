@@ -1,30 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Button } from "./button";
 
-class Home extends React.Component<any, any> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 0,
-    };
-  }
-  tick() {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      this.tick();
-    }, 1000);
-  }
-
+class MyButton extends React.Component<any, any> {
   render() {
     return (
+      <button style={{backgroundColor:"blanchedalmond"}}>{this.props.children}</button>
+    );
+  }
+}
+class Home extends React.Component<any, any> {
+  render() {
+    const persona = {
+      nombre: "Lucy",
+      apellido: "Akerman",
+      pasatiempos: "modelado",
+      amigas: ["Sirena", "Dulci", "Beta"],
+    };
+    return (
       <div>
-        <Button>{this.state.counter}</Button>
+        Hola {persona.nombre + " " + persona.apellido}. Tus amigas{" "}
+        {persona.amigas.map((item)=>( <MyButton>{item}</MyButton>))} son muy lindas chicas.
+        <MyButton>Aceptar</MyButton>
       </div>
     );
   }
