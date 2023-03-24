@@ -1,16 +1,33 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+type LasProps = {
+  edad: number;
+};
+
+function UnComponente(props: LasProps) {
+  return <div>Tu edad es {props.edad}</div>;
+}
+
 class MyButton extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
-      <button style={{ backgroundColor: "blanchedalmond" }}>
-        {this.props.children}
+      <button style={{ backgroundColor: this.props.color }}>
+        {this.props.children}, {this.props.texto}
       </button>
     );
   }
 }
 class Home extends React.Component<any, any> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      edad: 3,
+    };
+  }
   render() {
     const persona = {
       nombre: "Lucy",
@@ -19,18 +36,37 @@ class Home extends React.Component<any, any> {
       amigas: ["Sirena", "Dulci", "Beta"],
     };
     const cuantas =
-      persona.amigas.length > 2 ? <MyButton>Muchas</MyButton> : "Algunas";
-      const esLinda= true
+      persona.amigas.length > 2 ? (
+        <MyButton color="blanchedalmond">Muchas</MyButton>
+      ) : (
+        "Algunas"
+      );
+    const esLinda = true;
+    const changeState=()=>{
+      this.setState({
+        edad:3.5
+      })
+    }
     return (
-      <div>
+      <div onClick={changeState}>
         Hola {persona.nombre + " " + persona.apellido}.
+        <UnComponente edad={this.state.edad} />
+        <br />
         {esLinda && "Sos muy linda chica"}. Tus amigas son {cuantas}
         :
+        <br />
+        <br />
         {persona.amigas.map((item) => (
-          <MyButton key={item}>{item}</MyButton>
+          <MyButton color="#ACFF76" key={item}>
+            {item}
+          </MyButton>
         ))}{" "}
         son muy lindas chicas.
-        <MyButton>Aceptar</MyButton>
+        <br />
+        <br />
+        <MyButton color="#FFAC76" texto="Actualiza edad" >
+          Aceptar
+        </MyButton>
       </div>
     );
   }
